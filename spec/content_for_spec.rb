@@ -56,6 +56,14 @@ describe Sinatra::ContentFor do
     end
   end
 
+  context "when rendering erb layout and template both with utf8 chars" do
+    it "doesn't raise any errors" do
+      expect {
+        subject.erb :body_utf8, :layout => :layout_utf8
+      }.to_not raise_error
+    end
+  end
+
   # TODO: liquid radius markaby builder nokogiri
   engines = %w[erb erubis haml slim]
 
