@@ -70,10 +70,21 @@ module Sinatra
       false
     end
 
+    def self.session
+      @session ||= {}
+    end
+
+    def self.session=(val)
+      @session = val.clone
+    rescue TypeError
+      @session = nil
+    end
+
     def session
-      return {} unless last_request?
-      raise Rack::Test:Error, "session not enabled for app" unless last_env["rack.session"] or app.session?
-      last_request.session
+      TestHelpers.session
+      #return {} unless last_request?
+      #raise Rack::Test:Error, "session not enabled for app" unless last_env["rack.session"] or app.session?
+      #last_request.session
     end
 
     def last_env
